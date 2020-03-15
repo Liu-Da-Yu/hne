@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>联系我们_昊诺电子</title>
+    <!--  <script src="../static/js/jquery.js"></script>-->
+    <script src="/js/jquery.js"></script>
+    <style type="text/css">
+
+        body{
+            user-select: none;
+        }
+        .links div {
+            font-size: 17px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 35px;
+            text-transform: capitalize;
+            display: inline-block;
+            line-height: 50px;
+            height: 50px;
+        }
+
+        .selectLinkSpan{
+            color: #2acb35;
+        }
+
+        .noSelectLinkSpan{
+            color: #062a4d;
+        }
+
+        .links :hover {
+            color: #2acb35;
+            cursor: pointer;
+        }
+
+        .about span{
+            padding: 5px;
+            margin-top: 10px;
+        }
+        .infoDiv{
+            width: 500px ;
+        }
+        .infoDiv p{
+            width: 127px;
+            display: inline-block;
+        }
+        .infoDiv input{
+            width: 350px;
+            display: inline-block;
+            height:25px;
+            font-size: 16px;
+            margin-left: 10px;
+            border-radius: 8px;
+            border: 1px solid gainsboro;
+        }
+        .infoDiv textarea{
+            font-size: 16px;
+            margin-left: 142px;
+            border-radius: 8px;
+            border: 1px solid gainsboro;
+            height: 90px;width: 350px;
+        }
+        .infoDiv input:hover{
+            border: 1px solid #00d73a;
+        }
+        .infoDiv textarea:hover{
+            border: 1px solid #00d73a;
+        }
+
+        .submitBtn:hover {
+            background-color: white;
+            cursor: pointer;
+            color: #00d73a;
+            font-weight: bold;
+        }
+
+        .submitBtn{
+            border: 1px solid #00d73a ;width:500px;height: 40px;
+            margin-top: 15px;color: white;background-color: #00d73a;
+            border-radius: 50px;font-size: 16px;font-weight: bold;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--头部-->
+<div style="padding-left: 100px; height: 120px;padding-right: 100px;margin-top: -10px">
+    <div style="width: 243px;height: 120px;display: inline-block">
+        <div style="float: left;display: inline-block;width: 100px;height: 120px;">
+            <img src="/img/logo.png" style="width:60%;">
+<!--            <img src="../static/img/logo.png" style="width:100%;margin-top: 20px;">-->
+        </div>
+        <div style="padding-top: 33px;float: right;display: inline-block;width: 135px;">
+
+            <span style="color: #0050a4;font-size: 20px;">昊诺电子</span>
+            <br>
+            <span style="color: #ffbe9f;font-size: 16px;"> th new energy </span>
+
+        </div>
+    </div>
+
+    <div class="links"
+         style="margin-top: 30px;float: right;width: 500px;height: 120px;display: inline-block;">
+        <div class="noSelectLinkSpan" onclick="changeLink('home',this)">Home</div>
+        <div class="noSelectLinkSpan" onclick="changeLink('product',this)" >Product</div>
+        <div class="noSelectLinkSpan" onclick="changeLink('contact',this)" >Contact</div>
+        <div class="noSelectLinkSpan" onclick="changeLink('about',this)" >About</div>
+        <div class="noSelectLinkSpan" onclick="changeLink('ch',this)" >CH</div>
+    </div>
+</div>
+<div style="width: 100%;height: 1px;background-color: #d4f8de;"></div>
+
+<!--about-->
+<div class="about" style="display: none;padding: 15px; color: #747373; text-align: center;margin-top: -25px">
+
+    <div style="color: #e23d0e;font-size: 25px;text-align: center;width: 100%;display: inline-block">
+        <span style="width:150px;">About Haonuo</span>
+    </div>
+
+    <div style="line-height: 32px;font-size: 18px;color: #747373;margin-top: 15px;display: inline-block;padding-left: 40px;padding-right: 40px;text-align: left">
+         <p>
+            Zibo Haonuo Electronics Co.,Ltd is a professional lithium ion battery supplier, based in Zibo,
+             Shandong province, founded by an aspiring team that working in lithium ion battery fields many years.
+        </p>
+        <p>
+            Our focus is lithium ion batteries. especially LiFePO4 battery, why lithium ion batteries?
+            Because they are the best energy storage option in terms of cost, safety, and feasibility.
+            the energy could be widely used in Home&Industry EES, Telecom backup power, UPS, EV, Fishing boat, Solar, ect fields.
+        </p>
+        <p>
+            Haonuo Electronics, working with famous cell mft like Samsung, LG, Goldencell, CATL, BAK, etc, supplys standard lithium ion battery packs for use in a wide variety of applications and produces custom packs for specific projects and OEM projects.
+        </p>
+        <p>
+            Our goal is to enable the widespread deployment of this cutting-edge technology in order to make green,
+            renewable energy available for everyone.
+        </p>
+    </div>
+
+</div>
+
+<!--联系我们-->
+<div class="contact" style="width: 100%;padding: 15px; color: #747373;display: inline-block;margin-top: -25px">
+    <div style="width: 500px;margin-left: calc( 50% - 240px )">
+        <div style="margin-bottom: 12px;color: #062a4d;display: inline-block;font-weight: bold">CONTACT INFORMATION:</div>
+            <div class="infoDiv">
+                <p>Name:</p>
+                <input class="nameInput" type="text">
+            </div>
+            <div class="infoDiv">
+                <p>Company:</p>
+                <input class="companyInput" type="text">
+            </div>
+            <div class="infoDiv">
+                <p>Contact Number:</p>
+                <input class="contactInput" type="text">
+            </div>
+            <div class="infoDiv">
+                <p>Email:</p>
+                <input class="emailInput" type="text">
+            </div>
+            <div class="infoDiv" style="height:100px;">
+                <p style="position: absolute">Message:</p>
+                <textarea class="messageInput"></textarea>
+            </div>
+
+            <button class="submitBtn" onclick="submitBtn()">submit</button>
+        </div>
+        <div style="padding-left: 50px;padding-right: 59px;height: 50px;line-height: 32px;font-size: 18px;color: #747373;margin-top: 15px;">
+            <p>
+                Haonuo Electronics offers rich line of batteries and related accessories, including individual LFP /NCM cell, Battery pack, Charger, PCM, Connector, Led indicator, etc.
+                <br>
+                Haonuo Electronics also welcome OEM, ODM and CUSTOMIZATION, pls let us know your inquiries and questions!!
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!--尾部-->
+<div style=" background: rgba(0,0,0,0.6);height: 100px;margin-top: 20px;">
+
+</div>
+
+
+<script type="application/javascript">
+
+    function changeLink( type , th ) {
+
+        //更改链接样式
+        $(".links div").each(function (i,ele) {
+            $(ele).removeClass("selectLinkSpan");
+        });
+        $(th).removeClass("noSelectLinkSpan");
+        $(th).addClass("selectLinkSpan");
+
+        //切换显示
+        $(".home").css("display","none");
+        $(".product").css("display","none");
+        $(".contact").css("display","none");
+        $(".about").css("display","none");
+        $("."+type).css("display","inline-block");
+        //$(".language").css("display","none");
+
+    }
+
+    function submitBtn(){
+
+        var nameInput = $(".nameInput").val();
+        var companyInput = $(".companyInput").val();
+        var contactInput = $(".contactInput").val();
+        var emailInput = $(".emailInput").val();
+        var messageInput = $(".messageInput").val();
+
+        if( !nameInput ){
+            alert("Please tell us your name ")
+            return;
+        }
+
+        var data = {
+
+        };
+
+       $.ajax({
+            url : "/commitInfo",
+            type : "post",
+            data:{
+                nameInput:nameInput,
+                companyInput:companyInput,
+                contactInput:contactInput,
+                emailInput:emailInput,
+                messageInput:messageInput
+            },
+            success : function(data) {
+
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>
