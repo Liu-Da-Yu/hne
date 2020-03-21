@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加产品</title>
+    <script src="/js/jquery.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <style type="text/css">
+
+        input{
+            width: 400px;
+            display: inline-block;
+            height:25px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid gainsboro;
+        }
+
+        textarea{
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid gainsboro;
+            height: 120px;width: 400px;
+        }
+
+        input:hover{
+            border: 1px solid #00d73a;
+        }
+        textarea:hover{
+            border: 1px solid #00d73a;
+        }
+
+        .submitProduct{
+            border: 1px solid #00d73a ;width:400px;height: 40px;
+            margin-top: 15px;color: white;background-color: #00d73a;
+            border-radius: 50px;font-size: 16px;font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submitProduct:hover {
+            background-color: white;
+            cursor: pointer;
+            color: #00d73a;
+            font-weight: bold;
+        }
+
+        body div{
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body style="padding-left: 30px;padding-top: 50px;padding-bottom: 80px">
+
+    <div>
+        <p>产品名称：</p><input type="text" class="name"><br>
+    </div>
+
+    <div>
+        <p>所属产品类别：</p> <input type="text" class="parent"><br>
+    </div>
+
+    <div>
+        <p>尺寸：</p><input type="text" class="size"><br>
+    </div>
+
+    <div>
+        <p>电压：</p> <input type="text" class="voltage"><br>
+    </div>
+
+    <div>
+        <p>容量：</p> <input type="text" class="energy"><br>
+    </div>
+
+    <div>
+        <p>产品图片（多选）：</p>
+        <button type="button" class="layui-btn" id="imgUrl">
+            <i class="layui-icon">&#xe67c;</i>上传图片
+        </button>
+        <p style="display: none;" >产品图片已上传<span id="productCountSpan">0</span> 张</p>
+        <input type="text" style="display: none" id="productInput">
+    </div>
+
+    <div>
+        <p>参数图片（多选）：</p>
+        <button type="button" class="layui-btn" id="infoImgUrl">
+            <i class="layui-icon">&#xe67c;</i>上传图片
+        </button>
+        <p style="display: none;" >参数图片已上传<span id="paramCountSpan">0</span> 张</p>
+        <input type="text" style="display: none" id="paramInput">
+    </div>
+
+    <div>
+        <p>描述文本：</p>
+        <div id="infoText" style="width:500px;height: 50px"> </div>
+        <br>
+    </div>
+
+    <button class="submitProduct" onclick="addProduct()">添加产品</button>
+
+</body>
+<script src="/layui/layui.js" ></script>
+<script src="/utf8-php/ueditor.config.js" ></script>
+<script src="/utf8-php/ueditor.all.js" ></script>
+<script src="/utf8-php/lang/zh-cn/zh-cn.js" ></script>
+<script src="/utf8-php/ueditor.parse.js" ></script>
+
+<script type="application/javascript">
+
+    var ue;
+    $(function () {
+        ue = UE.getEditor('infoText', {
+
+            toolbars: [
+                [
+                    'paragraph',
+                    'fontfamily',
+                    'fontsize',
+                    'bold',
+                    'italic',
+                    'underline',
+                    'fontborder',
+                    'strikethrough', 'forecolor', 'backcolor',
+                    'justifyleft', 'justifycenter', 'justifyright', 'inserttable', 'source',
+                    'insertorderedlist', 'insertunorderedlist'
+                ]
+            ],
+            initialFrameWidth: null, // 宽度随浏览器自适应
+            initialFrameHeight: 260, // 高度
+            autoHeightEnabled: false, // 禁止自动增高，改用滚动条
+            elementPathEnabled: false, // 是否启用元素路径，默认是true显示
+            wordCount: true, // 是否开启字数统计
+            autoFloatEnabled: false // 是否保持toolbar的位置不动
+
+        });
+    });
+
+    function addProduct(){
+
+        $.ajax({
+            url : "/addProduct",
+            type : "post",
+            data:{
+                name: $(".name").val(),
+                parent: $(".parent").val().trim(),
+                size: $(".size").val(),
+                voltage: $(".voltage").val(),
+                energy: $(".energy").val(),
+                imgUrl: $("#productInput").val(),
+                infoImgUrl: $("#paramInput").val(),
+                infoText: ue.getContent()+""
+            },
+            success : function(data) {
+                if(data){
+                    alert("add success ～！");
+                    location.reload();
+                }else{
+                    alert("Failed to add. Please contact the administrator . ");
+                    location.reload();
+                }
+            },
+            error : function () {
+                alert("Failed to add. Please contact the administrator . ");
+                location.reload();
+            }
+        });
+    }
+
+    layui.use('upload', function(){
+
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+        //产品图片上传
+        var uploadInst = upload.render({
+            elem: '#imgUrl'
+            ,url: '/uploadImg/'
+            ,accept: 'images'
+            ,acceptMime: 'image/*'
+            ,size: 10
+            ,multiple: true
+            ,done: function(res,index){
+                if( res.code === 0 ) {
+                    layer.msg('upload success! Can continue to add!');
+                    $("#productCountSpan").parent().css("display","inline-block");
+                    $("#productCountSpan").html(parseInt($("#productCountSpan").html())+1);
+                    $("#productInput").val($("#productInput").val() + ";" + res.imgId ) ;
+
+                }else{
+                    layer.msg('Upload failed! Please do it again! ');
+                }
+            }
+            ,error: function(){
+
+            }
+        });
+
+        //图片描述信息图片上传
+        var uploadInst = upload.render({
+            elem: '#infoImgUrl'
+            ,url: '/uploadImg/'
+            ,accept: 'images'
+            ,acceptMime: 'image/*'
+            ,size: 10
+            ,multiple: true
+            ,done: function(res,index){
+                if( res.code === 0 ) {
+                    var id = res.imgId;
+                    layer.msg('upload success! Can continue to add!');
+                    $("#paramCountSpan").parent().css("display","inline-block");
+                    $("#paramCountSpan").html(parseInt($("#paramCountSpan").html())+1);
+                    $("#paramInput").val($("#paramInput").val() + ";" + res.imgId );
+
+                }else{
+                    layer.msg('Upload failed! Please do it again! ');
+                }
+            }
+            ,error: function(){
+            }
+        });
+    });
+
+</script>
+</html>

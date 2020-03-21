@@ -1,0 +1,89 @@
+
+body{
+    user-select: none;
+}
+.links .linksOption {
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 35px;
+    text-transform: capitalize;
+    display: inline-block;
+    line-height: 50px;
+    height: 50px;
+}
+
+.selectLinkSpan{
+    color: #2acb35;
+}
+
+.noSelectLinkSpan{
+    color: #062a4d;
+}
+
+.links :hover {
+    color: #2acb35;
+    cursor: pointer;
+}
+
+.about span{
+    padding: 5px;
+    margin-top: 10px;
+}
+.infoDiv{
+    width: 500px ;
+}
+.infoDiv p{
+    width: 127px;
+    display: inline-block;
+}
+.infoDiv input{
+    width: 350px;
+    display: inline-block;
+    height:25px;
+    font-size: 16px;
+    margin-left: 10px;
+    border-radius: 8px;
+    border: 1px solid gainsboro;
+}
+.infoDiv textarea{
+    font-size: 16px;
+    margin-left: 142px;
+    border-radius: 8px;
+    border: 1px solid gainsboro;
+    height: 90px;width: 350px;
+}
+.infoDiv input:hover{
+    border: 1px solid #00d73a;
+}
+.infoDiv textarea:hover{
+    border: 1px solid #00d73a;
+}
+
+.submitBtn:hover {
+    background-color: white;
+    cursor: pointer;
+    color: #00d73a;
+    font-weight: bold;
+}
+
+.submitBtn{
+    border: 1px solid #00d73a ;width:500px;height: 40px;
+    margin-top: 15px;color: white;background-color: #00d73a;
+    border-radius: 50px;font-size: 16px;font-weight: bold;
+    cursor: pointer;
+}
+
+.productType{
+    width: 250px;
+    height: 35px;
+    display: inline-block;
+}
+
+.product p{
+    display: inline-block;
+    width: 190px;
+    margin-left: calc(50% - 230px);
+}
+
+

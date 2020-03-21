@@ -2,25 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>查询信息</title>
+    <script src="/js/jquery.js"></script>
     <style type="text/css">
         table {
             width: 480px;
             border-collapse:collapse;
+            font-size: 13px;
+        }
+        tr{
+            height: 40px
         }
         table td {
             border: 1px #e6e6e6 solid;
+            padding-left: 10px;
+            padding-right: 10px;
         }
         table th {
             border: 1px #e6e6e6 solid;
             background-color: #F2F2F2;
+            padding-left: 10px;
+            padding-right: 10px;
         }
     </style>
 </head>
 <body style="height:500px;overflow: scroll;padding: 30px;text-align: center">
-        <table style="width:100%;">
+        <table style="width:100%;" class="dataTable">
 
-            <tr style="height: 40px">
+            <tr>
                 <th style="width: 10%">commit time</th>
                 <th style="width: 10%">Name</th>
                 <th style="width: 15%">Company</th>
@@ -28,16 +37,42 @@
                 <th style="width: 10%">Email</th>
                 <th style="width: 40%">Message</th>
             </tr>
-
-           <!-- <tr class="">
-                <td>2344324234234234234</td>
-                <td>423423234234234234</td>
-                <td>323423423423423423423423423</td>
-                <td>122342342342342342342343</td>
-                <td>123234234234</td>
-                <td>122342342342342342342343</td>
-            </tr>-->
-
         </table>
 </body>
+
+<script type="application/javascript">
+
+    $(function () {
+        $.ajax({
+            url : "/getAllData",
+            type : "post",
+            success : function(data) {
+                if( data ){
+                    var datas = JSON.parse(data);
+                    if( datas ){
+                        var dom = "" ;
+
+                        $.each(datas,function ( index , ele ){
+
+                            dom = dom +
+                            "<tr><td>"+     new Date( Number(ele.createDate)).toLocaleString()
+                            +"</td><td>"+ ele.nameInput
+                            +"</td><td>"+ele.companyInput
+                            +"</td><td>"+ele.contactInput
+                            +"</td><td>"+ele.emailInput
+                            +"</td><td>"+ele.messageInput
+                            +"</td></tr>";
+
+                            //ele.uuid
+
+                        });
+
+                        $(".dataTable").append(dom);
+                    }
+                }
+            }
+        });
+    });
+
+</script>
 </html>
