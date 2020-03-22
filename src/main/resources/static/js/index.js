@@ -1,8 +1,127 @@
-$(function () {
-
+var layer;
+layui.use('layer', function() {
+    layer = layui.layer;
     $(".productsLink").click();
-
+    getProducts("");
 });
+
+//点击查看详情
+function clickDetail( id ){
+
+    //根据id获取产品详情
+    $.ajax({
+        url : "/getProductById",
+        type : "post",
+        data:{
+            id : id
+        },
+        success : function( res ) {
+            res = JSON.parse(res);
+            if( res.code === 0 && res.data ){
+                var data = res.data[0];
+                if(data){
+                    var imgs = getUrl(data.imgUrl,false);
+                    var infos = getUrl(data.infoImgUrl,true);
+                    var dom =
+                        "<div style='height: 800px'>"+
+                          "<div class='layui-carousel' id='lunbo'>" +
+                            "<div carousel-item>" +
+                               imgs+
+                            "</div>" +
+                          "</div>"+
+                        "<div style='padding-left: 35px;padding-top: 15px'>"+data.infoText+"</div>" +  infos
+                        +"</div>";
+
+                    layer.open({
+                        type: 1
+                        ,title: '查看产品详情'
+                        ,closeBtn: 1
+                        ,area: '700px'
+                        ,shade: 0.8
+                        ,id: 'LAY_layuipro'
+                        ,moveType: 0
+                        ,content: dom
+
+                    });
+
+                    layui.use('carousel', function(){
+                        var carousel = layui.carousel;
+                        //建造实例
+                        carousel.render({
+                            elem: '#lunbo'
+                            ,width: '100%' //设置容器宽度
+                            ,arrow: 'always' //始终显示箭头
+                            //,anim: 'updown' //切换动画方式
+                        });
+                    });
+                }
+            }
+        },
+        error : function () {
+            alert("Failed to add. Please contact the administrator . ");
+        }
+    });
+}
+
+//根据地址拼接img标签 是否拼接图片风格
+function getUrl( str , f ){
+
+    var dom = "";
+    if(str){
+        var style = "" ;
+        if(f){
+            style = "style = 'width:600px;margin-left:35px'" ;
+        }
+
+        var strs = str.split(";");
+        for(var i = 0 ; i < strs.length ; i++ ){
+            if( strs[i] && strs[i].length > 2 ){
+                dom += "<img " + style + "src='/productImg/"+strs[i]+"'>";
+            }
+        }
+    }
+    return dom ;
+}
+
+function getProducts ( where ){
+
+    $.ajax({
+        url : "/getProducts",
+        type : "post",
+        data:{
+            where : where
+        },
+        success : function( res ) {
+            res = JSON.parse(res);
+            if( res.code === 0 && res.data ){
+
+                var dom = "";
+                $.each( res.data , function ( index , ele ) {
+                    dom += "<tr class='productTr' style='height: 170px'>" +
+                                "<td class='productTd0'>"+ele.id+"</td>" +
+                                "<td class='productTd1'>" +
+                                    "<img class='productTdImg' src='/productImg/"+ele.imgUrl+"'>" +
+                                "</td>" +
+                                "<td class='productTd2'>"+ele.name+"</td>" +
+                                "<td class='productTd3'>"+ele.size+"</td>" +
+                                "<td class='productTd4'>"+ele.voltage+"</td>" +
+                                "<td class='productTd5'>"+ele.energy+"</td>" +
+                                "<td class='productTd6'>" +
+                                    "<button onclick='clickDetail("+"\""+ele.id+"\""+")' class='productBtn layui-btn'>DETAIL</button>" +
+                                "</td>" +
+                            "</tr>";
+                });
+
+                $(".productTable tr").eq(0).nextAll().remove();
+                $(".productTable").append(dom);
+            }
+        },
+        error : function () {
+            alert("Failed to add. Please contact the administrator . ");
+        }
+    });
+
+}
 
 
 function changeLink( type , th ) {
@@ -56,4 +175,9 @@ function submitBtn(){
             alert("Failed to add. Please contact the administrator . ");
         }
     });
+}
+
+//根据条件获取数据
+function getProductByType(){
+    getProducts( $(".productType option:selected").text() );
 }

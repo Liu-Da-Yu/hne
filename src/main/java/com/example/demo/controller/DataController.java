@@ -5,7 +5,9 @@ import com.example.demo.dao.*;
 import com.example.demo.util.FileUtils;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
@@ -19,6 +21,7 @@ public class DataController {
     @Autowired
     ProductDao productDao;
 
+    //保存用户提交的数据
     @PostMapping("/commitInfo")
     public String commitInfo(Info info){
 
@@ -32,6 +35,7 @@ public class DataController {
         }
     }
 
+    //获取所有用户提交的数据
     @PostMapping("/getAllData")
     public String getAllData(){
         try {
@@ -42,6 +46,7 @@ public class DataController {
         }
     }
 
+    //添加产品
     @PostMapping("/addProduct")
     public String addProduct( Product product ){
         try {
@@ -54,6 +59,7 @@ public class DataController {
         return "success";
     }
 
+    //上传图片
     @PostMapping("/uploadImg")
     public String uploadImg(@RequestParam("file")MultipartFile file ){
 
@@ -82,5 +88,65 @@ public class DataController {
         catch (Exception e){
             return null;
         }
+    }
+
+    //查询产品
+    @PostMapping("/getProducts")
+    public String getProducts(@RequestParam("where") String where ){
+
+        List<Product> all;
+        try {
+
+            if( StringUtils.isEmpty( where ) ){
+
+                //查询所有
+                all = productDao.findAll();
+
+            }else{
+
+                //根据条件查询
+                Product example = new Product();
+                example.setParent(where);
+                Example<Product> ex = Example.of(example);
+                all = productDao.findAll(ex);
+            }
+
+            if( all != null ){
+                for (Product product : all) {
+                    product.setInfoText("");
+                    product.setInfoImgUrl("");
+                    product.setParent("");
+                    String url = product.getImgUrl();
+                    if( !StringUtils.isEmpty(url)){
+                        String[] split = url.split(";");
+                        product.setImgUrl( split[1] + "" );
+                    }
+                }
+            }
+
+            return Result.success("data",all);
+
+        }catch (Exception e){
+            return Result.fail();
+        }
+    }
+
+    //查询产品
+    @PostMapping("/getProductById")
+    public String getProductById(@RequestParam("id") String id ){
+
+        try {
+
+            //根据条件查询
+            Product example = new Product();
+            example.setId(id);
+            Example<Product> ex = Example.of(example);
+            List<Product> all = productDao.findAll(ex);
+            return Result.success("data",all);
+
+        }catch (Exception e){
+            return Result.fail();
+        }
+
     }
 }

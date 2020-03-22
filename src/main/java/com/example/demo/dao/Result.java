@@ -12,7 +12,7 @@ public class Result {
 
     private Result () {}
 
-    public static String success( String name , String data ){
+    public static String success( String name , Object data ){
        Map<String,Object> map =new HashMap<>();
         map.put(name,data);
         map.put("code",0);

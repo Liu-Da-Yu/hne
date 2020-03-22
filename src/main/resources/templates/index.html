@@ -5,7 +5,7 @@
     <title>联系我们_昊诺电子</title>
     <script src="/js/jquery.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/index.css"/>
-
+    <link rel="stylesheet" href="/layui/css/layui.css">
 </head>
 <body>
 
@@ -26,9 +26,9 @@
 
      <div class="links" style="margin-top: 30px;float: right;width: 500px;height: 120px;display: inline-block;">
         <!-- <div class="linksOption noSelectLinkSpan" onclick="changeLink('home',this)">Home</div>-->
+        <div class="linksOption noSelectLinkSpan" onclick="changeLink('about',this)" >About</div>
         <div class="linksOption noSelectLinkSpan productsLink" onclick="changeLink('product',this)">Products </div>
         <div class="linksOption noSelectLinkSpan" onclick="changeLink('contact',this)" >Contact</div>
-        <div class="linksOption noSelectLinkSpan" onclick="changeLink('about',this)" >About</div>
         <div class="linksOption noSelectLinkSpan" onclick="changeLink('ch',this)" >CH</div>
 
     </div>
@@ -36,13 +36,12 @@
 <div style="width: 100%;height: 1px;background-color: #d4f8de;"></div>
 
 
-
 <!--产品-->
 <div class="product" style="width: 100%;padding: 15px; color: #747373;display: inline-block;margin-top: -25px">
 
     <p>Select product category : </p>
 
-    <select class="productType">
+    <select class="productType" onchange="getProductByType()">
         <option value="all" selected>All products</option>
         <option value="1libp" >12V Lithium ion Battery Pack</option>
         <option value="llibp" >LED Lithium ion Battery Pack</option>
@@ -52,32 +51,23 @@
         <option value="4libp" >48V Lithium ion Battery Pack</option>
     </select>
 
-    <div class="productList" style="padding-left: 15px;padding-right: 15px;background-color: #0C0C0C;width:600px;height: auto;margin-left: calc(50% - 310px)">
+    <div class="productList" style="padding-left: 15px;padding-right: 15px;width:calc(100% - 45px);height: 1000px;">
 
-        <!--第一个产品-->
-        <div style="width: 100%;height: 100px;background-color: red;">
+        <table class="productTable" style="border: 0px;text-align: center;width: 100%;background-color: #f7f7f7;margin-top: 20px">
+            <tr style="height: 50px;background-color: #00d73a;color: white">
+                <td class="productTd0"></td>
+                <td class="productTd1">Product pictures</td>
+                <td class="productTd2">Product Name</td>
+                <td class="productTd3">Battery Size</td>
+                <td class="productTd4">Normal Voltage</td>
+                <td class="productTd5">Rated Energy</td>
+                <td class="productTd6">Product Detail</td>
+            </tr>
 
-            <div style="width: 100px;height: 100px;display: inline-block;">
-                <img src="" alt="" style="width:200px;height:100px;">
-            </div>
+        </table>
 
-            <div style="width: 100px;height: 100px;display: inline-block;line-height: 100px">
-               <p>1</p>
-            </div>
+        <!--每一个产品-->
 
-            <div style="width: 100px;height: 100px;display: inline-block;line-height: 100px">
-                <p>2</p>
-            </div>
-
-            <div style="width: 100px;height: 100px;display: inline-block;line-height: 100px">
-                <p>3</p>
-            </div>
-
-            <div style="width: 100px;height: 100px;display: inline-block;line-height: 100px">
-                <p>4</p>
-            </div>
-
-        </div>
     </div>
 </div>
 
@@ -150,7 +140,7 @@
 <!--尾部-->
 <div style=" cursor: pointer ;color: #898989 ; padding-top: 7px;background-color:#0c0d0d;height: 85px;margin-top: 20px;text-align: center;font-weight: 400;">
 
-    <p>
+    <p style="line-height: 38px;">
         © CopyRight | <span style="color:#00d73a;">Haonuo</span>  All Rights Reserved  鲁ICP备20007792号-1
        <br>
         cookie policy: Cookies will not be used on this website
@@ -158,6 +148,7 @@
 
 </div>
 
+<script src="/layui/layui.js"></script>
 <script src="/js/index.js"></script>
 </body>
 </html>
