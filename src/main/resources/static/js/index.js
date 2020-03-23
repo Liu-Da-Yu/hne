@@ -1,4 +1,4 @@
-var layer;
+var layer , loading ,loadingDetail;
 layui.use('layer', function() {
     layer = layui.layer;
     $(".productsLink").click();
@@ -7,6 +7,8 @@ layui.use('layer', function() {
 
 //点击查看详情
 function clickDetail( id ){
+
+    loadingDetail = layer.load(0, {shade:  [0.4,'#000']});
 
     //根据id获取产品详情
     $.ajax({
@@ -23,7 +25,7 @@ function clickDetail( id ){
                     var imgs = getUrl(data.imgUrl,false);
                     var infos = getUrl(data.infoImgUrl,true);
                     var dom =
-                        "<div style='height: 800px'>"+
+                        "<div style='height: 800px;padding: 15px'>"+
                           "<div class='layui-carousel' id='lunbo'>" +
                             "<div carousel-item>" +
                                imgs+
@@ -34,7 +36,7 @@ function clickDetail( id ){
 
                     layer.open({
                         type: 1
-                        ,title: '查看产品详情'
+                        ,title: 'View details'
                         ,closeBtn: 1
                         ,area: '700px'
                         ,shade: 0.8
@@ -55,12 +57,16 @@ function clickDetail( id ){
                         });
                     });
                 }
+                layer.close(loadingDetail);
             }
         },
         error : function () {
             alert("Failed to add. Please contact the administrator . ");
+            layer.close(loadingDetail);
         }
+
     });
+
 }
 
 //根据地址拼接img标签 是否拼接图片风格
@@ -70,7 +76,7 @@ function getUrl( str , f ){
     if(str){
         var style = "" ;
         if(f){
-            style = "style = 'width:600px;margin-left:35px'" ;
+            style = "style = 'width:580px;margin-left:45px'" ;
         }
 
         var strs = str.split(";");
@@ -84,6 +90,8 @@ function getUrl( str , f ){
 }
 
 function getProducts ( where ){
+
+    loading = layer.load(0, {shade:  [0.4,'#000']});
 
     $.ajax({
         url : "/getProducts",
@@ -114,12 +122,16 @@ function getProducts ( where ){
 
                 $(".productTable tr").eq(0).nextAll().remove();
                 $(".productTable").append(dom);
+                layer.close(loading);
             }
         },
         error : function () {
             alert("Failed to add. Please contact the administrator . ");
+            layer.close(loading);
         }
     });
+
+
 
 }
 
@@ -179,5 +191,5 @@ function submitBtn(){
 
 //根据条件获取数据
 function getProductByType(){
-    getProducts( $(".productType option:selected").text() );
+    getProducts( $(".productType option:selected").val() );
 }

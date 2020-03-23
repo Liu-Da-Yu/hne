@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加产品</title>
+    <title>add-product</title>
     <script src="/js/jquery.js"></script>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <style type="text/css">
@@ -136,6 +136,9 @@
     });
 
     function addProduct(){
+
+        $(".submitProduct").addClass("layui-btn-disabled");
+        $(".submitProduct").attr("disabled", "disabled");
 
         $.ajax({
             url : "/addProduct",

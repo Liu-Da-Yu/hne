@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dao.*;
 import com.example.demo.util.FileUtils;
-import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.util.ResourceUtils;
@@ -82,8 +81,6 @@ public class DataController {
             }
 
             return null ;
-        }catch (FileSizeLimitExceededException ee){
-            return Result.fail();
         }
         catch (Exception e){
             return null;
