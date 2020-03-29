@@ -1,8 +1,8 @@
 var layer , loading ,loadingDetail;
 layui.use('layer', function() {
     layer = layui.layer;
-    $(".productsLink").click();
-    getProducts("");
+    $(".aboutLink").click();
+
 });
 
 //点击查看详情
@@ -115,7 +115,7 @@ function getProducts ( where ){
                                 "<td class='productTd4'>"+ele.voltage+"</td>" +
                                 "<td class='productTd5'>"+ele.energy+"</td>" +
                                 "<td class='productTd6'>" +
-                                    "<button onclick='clickDetail("+"\""+ele.id+"\""+")' class='productBtn layui-btn'>DETAIL</button>" +
+                                    "<button onclick='clickDetail("+"\""+ele.id+"\""+")' class='productBtn layui-btn layui-btn-normal'>DETAIL</button>" +
                                 "</td>" +
                             "</tr>";
                 });
@@ -146,10 +146,11 @@ function changeLink( type , th ) {
     $(th).addClass("selectLinkSpan");
 
     //切换显示
-    $(".home").css("display","none");
     $(".product").css("display","none");
     $(".contact").css("display","none");
     $(".about").css("display","none");
+    $(".lithium").css("display","none");
+    //lithium
     $("."+type).css("display","inline-block");
     //$(".language").css("display","none");
 

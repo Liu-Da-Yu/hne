@@ -188,3 +188,28 @@ body{
 .productTd6{
     width:120px;
 }
+#aboutUsBg{
+    background: url('/img/aboutUsBg.png');
+    margin:0;padding:0; repeat:no-repeat;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/img/aboutUsBg.png', sizingMethod=scale);
+    -ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/img/aboutUsBg.png', sizingMethod=scale);
+    background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+}
+
+
+#selectType{
+    width:calc(100% - 45px);height: 150px;
+}
+#selectType>div{
+    width:20%;height: 150px;display: inline;
+}
+
+    /*background: url('/img/logo.png');
+    margin:0;padding:0; repeat:no-repeat;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/img/logo.png', sizingMethod=scale);
+    -ms-filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/img/logo.png', sizingMethod=scale);
+    background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;*/
